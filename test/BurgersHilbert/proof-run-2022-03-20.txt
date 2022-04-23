@@ -1,0 +1,97 @@
+julia> include("test/BurgersHilbert/proof.jl")
+ 21.696351 seconds (34.51 M allocations: 6.042 GiB, 4.99% gc time)
+┌ Info: ϵ was determined to be
+└   ϵ = 0.500000000000000000000000000000
+[ Info: iteration:  0,  starting intervals:   1,
+[ Info: iteration:  1, remaining intervals:   1, maximum on remaining: [NaN, NaN]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  2, remaining intervals:   2, maximum on remaining: [-1.16816, 4.80822]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  3, remaining intervals:   4, maximum on remaining: [0.147378, 1.01031]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  4, remaining intervals:   8, maximum on remaining: [0.295948, 0.69581]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  5, remaining intervals:   3, maximum on remaining: [0.322747, 7.69311]
+[ Info: iteration:  6, remaining intervals:   2, maximum on remaining: [0.31155, 2.85158]
+[ Info: iteration:  7, remaining intervals:   1, maximum on remaining: [-0.77715, 1.8575]
+[ Info: iteration:  8, remaining intervals:   1, maximum on remaining: [-0.559129, 1.42371]
+[ Info: iteration:  9, remaining intervals:   1, maximum on remaining: [-0.435902, 1.17819]
+[ Info: iteration: 10, remaining intervals:   1, maximum on remaining: [-0.356278, 1.01891]
+[ Info: iteration: 11, remaining intervals:   1, maximum on remaining: [-0.300418, 0.906437]
+[ Info: iteration: 12, remaining intervals:   1, maximum on remaining: [-0.258992, 0.822306]
+[ Info: iteration: 13, remaining intervals:   1, maximum on remaining: [-0.227017, 0.756688]
+[ Info: iteration: 14, remaining intervals:   1, maximum on remaining: [-0.201583, 0.703865]
+[ Info: iteration: 15, remaining intervals:   1, maximum on remaining: [-0.18087, 0.660276]
+[ Info: iteration: 16, remaining intervals:   1, maximum on remaining: [-0.163681, 0.623586]
+[ Info: iteration: 17, remaining intervals:   1, maximum on remaining: [-0.149193, 0.592195]
+[ Info: iteration: 18, remaining intervals:   1, maximum on remaining: [-0.136824, 0.564971]
+[ Info: iteration: 19, remaining intervals:   1, maximum on remaining: [-0.126146, 0.541089]
+[ Info: iteration: 20, remaining intervals:   0,
+[ Info: iteration:  0,  starting intervals:   1,
+[ Info: iteration:  1, remaining intervals:   1, maximum: [0.536815, Inf]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  2, remaining intervals:   2, maximum: [0.536815, Inf]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  3, remaining intervals:   4, maximum: [0.536815, Inf]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  4, remaining intervals:   3, maximum: [0.536815, 1.26808]
+[ Info: iteration:  5, remaining intervals:   0, maximum: [0.5368150155217508823925 +/- 8.47e-23]
+  4.963872 seconds (29.69 M allocations: 2.274 GiB, 7.21% gc time)
+┌ Info: Terms in expansion on [0, ϵ2]
+│   length(f1.u0_expansion_div_xlogx) = 4
+└   length(f1.Du0_expansion_div_x2logx) = 6
+┌ Info: Terms in expansion on [ϵ2, ϵ3]
+│   length(f2.u0_expansion_div_xlogx) = 837
+└   length(f2.Du0_expansion_div_x2logx) = 2505
+┌ Info: Terms in expansion on [ϵ3, ϵ]
+│   length(f3.u0_expansion_div_xlogx) = 1936
+└   length(f3.Du0_expansion_div_x2logx) = 17381
+┌ Info: Enclosure on [0, ϵ1]
+└   m11 = [+/- 2.09e-4]
+[ Info: iteration:  0,  starting intervals: 16777216,
+[ Info: iteration:  1, remaining intervals: 12487, maximum: [0.000344766, 0.000356163]
+[ Info: iteration:  2, remaining intervals:   0, maximum: [0.000344766, 0.000344783]
+┌ Info: Enclosure on [ϵ1, ϵ2]
+└   m12 = [0.0003448 +/- 4.98e-8]
+[ Info: iteration:  0,  starting intervals: 131072,
+[ Info: iteration:  1, remaining intervals: 131072, maximum: [0.000849745, 151340.0]
+[ Info: iteration:  2, remaining intervals: 24818, maximum: [0.000849745, 8.75228]
+[ Info: iteration:  3, remaining intervals: 6263, maximum: [0.000849745, 0.0275509]
+[ Info: iteration:  4, remaining intervals:   0, maximum: [0.000849745, 0.000849754]
+┌ Info: Enclosure on [ϵ2, ϵ3]
+└   m13 = [0.0008497 +/- 5.37e-8]
+[ Info: iteration:  0,  starting intervals: 1024,
+[ Info: iteration:  1, remaining intervals: 1024, maximum: [0.000385988, 930.376]
+[ Info: iteration:  2, remaining intervals: 389, maximum: [0.000386043, 3.61992]
+[ Info: iteration:  3, remaining intervals: 168, maximum: [0.000386043, 0.025512]
+[ Info: iteration:  4, remaining intervals:  76, maximum: [0.000386043, 0.000404164]
+[ Info: iteration:  5, remaining intervals:  17, maximum: [0.000386043, 0.000386266]
+[ Info: iteration:  6, remaining intervals:   0, maximum: [0.00038604 +/- 6.61e-9]
+┌ Info: Enclosure on [ϵ3, ϵ]
+└   m14 = [0.00038604 +/- 6.61e-9]
+┌ Info: Enclosure on [0, ϵ]
+└   m1 = [0.0008497 +/- 5.37e-8]
+[ Info: iteration:  0,  starting intervals: 128,
+[ Info: iteration:  1, remaining intervals:   5, maximum: [0.000226448, 0.00633234]
+[ Info: iteration:  2, remaining intervals:   2, maximum: [0.000226523, 0.000227095]
+[ Info: iteration:  3, remaining intervals:   0, maximum: [0.000226687, 0.000226691]
+┌ Info: Enclosure on [ϵ, π]
+└   m2 = [0.00022669 +/- 3.54e-9]
+790.989514 seconds (5.95 G allocations: 972.395 GiB, 19.77% gc time)
+[ Info: iteration:  0,  starting intervals:   8,
+[ Info: iteration:  1, remaining intervals:   8, maximum: [0.943837, Inf]
+[ Info: non-finite intervals: 2
+[ Info: iteration:  2, remaining intervals:  16, maximum: [0.943837, Inf]
+[ Info: non-finite intervals: 2
+[ Info: iteration:  3, remaining intervals:  16, maximum: [0.943837, Inf]
+[ Info: non-finite intervals: 1
+[ Info: iteration:  4, remaining intervals:  21, maximum: [0.943837, 3.46015]
+[ Info: iteration:  5, remaining intervals:  28, maximum: [0.943837, 2.23524]
+[ Info: iteration:  6, remaining intervals:  44, maximum: [0.943837, 1.53335]
+[ Info: iteration:  7, remaining intervals:  68, maximum: [0.943941, 1.12523]
+[ Info: iteration:  8, remaining intervals:  96, maximum: [0.944703, 0.94618]
+[ Info: iteration:  9, remaining intervals:   0, maximum: [0.945095, 0.945851]
+ 95.318646 seconds (1.32 G allocations: 110.409 GiB, 21.34% gc time)
+Test Summary: | Pass  Total
+proof         |    4      4
+Test.DefaultTestSet("proof", Any[], 4, false, false)
