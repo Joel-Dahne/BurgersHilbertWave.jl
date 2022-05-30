@@ -146,7 +146,7 @@ where
 U1_m(x) = ∫abs(log(x * (1 - t) / 2) + log(x * (1 + t) / 2) - 2log(x * t / 2)) * t * sqrt(log(1 + inv(x * t))) dt
 U1_r(x) = ∫abs(log(sinc(x * (1 - t) / 2π)) + log(sinc(x * (1 + t) / 2π)) - 2log(sinc(x * t / 2π))) * t * sqrt(log(1 + inv(x * t))) dt
 ```
-We now handle `I1` and `I2` separately.
+We now handle `U1_m` and `U1_r` separately.
 
 # Handling `U1_m`
 We start by noticing that
@@ -199,8 +199,8 @@ f3(t) = log(t) * t * sqrt(log(inv(t)))
 ```
 The integrand is then given by `t * f1(t) + t * f2(t) - 2f3(t)`. We
 are thus interested in bounding `f1`, `f2` and `f3` near `t = 0` and
-`t = 1`. They are all zero and `t = 0` and `t = 1`, our goal will be
-to isolate the parts of the interval ``(0, 1)`` where they are not
+`t = 1`. They are all zero at `t = 0` and `t = 1`, our goal will be to
+isolate the parts of the interval ``(0, 1)`` where they are not
 monotone. We can then use monotonicity near the endpoints.
 
 For `f3` we can differentiate to get
