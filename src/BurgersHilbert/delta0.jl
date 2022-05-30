@@ -19,10 +19,11 @@ The difference between the handling of the intervals `[ϵ1, ϵ2]`, `[ϵ2,
 ϵ3]` and `[ϵ3, ϵ]` are how many terms in the asymptotic expansion we
 neglect (i.e. add to the error term). The value of `ϵ2` is taken
 sufficiently small to be able to neglect all terms with an exponent
-larger than or equal to `1e-4`, which with the standard choice of `u0`
-skips all but 5 terms. The value of `ϵ3` is taken sufficiently small
-to be able to neglect all terms with an exponent larger than or equal
-to `1 // 4`. On the interval `[ϵ3, ϵ]` we keep all the exponents.
+larger than or equal to `1e-4`, which (with the standard choice of
+`u0`) skips all but 5 terms. The value of `ϵ3` is taken sufficiently
+small to be able to neglect all terms with an exponent larger than or
+equal to `1 // 4`. On the interval `[ϵ3, ϵ]` we keep all the
+exponents.
 
 **IMPROVE:** We could do the asymptotic part of the calculations at a
 reduced precision. However this seems to only give a marginal
