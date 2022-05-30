@@ -115,7 +115,7 @@ To prove the result we need to bound three different value $n_0$, $\delta_0$ and
 
 # ╔═╡ f0baf2ec-3f73-4d55-9ce4-754d94d7f3ce
 md"""
-The code can either compute rigorous error bounds for the required constants or use estimates. The estimates are given by simply evaluating the corresponding functions on a number of points and taking the maximum. For the defect $\delta_0$ we also make sure to use points asymptically close to $0$ since that's where the largest defect is found. Check the constants to use rigorous error bounds for
+The code can either compute rigorous error bounds for the required constants or use non-rigorous estimates. Computing the non-rigorous estimates is much faster but of course not enough for the proof. The non-rigorous estimates are given by simply evaluating the corresponding functions on a number of points and taking the maximum. For the defect $\delta_0$ we also make sure to use points asymptically close to $0$ since that's where the largest defect is found. Check the constants to use **rigorous error bounds** for
 -  $n_0$ $(@bind use_rigorous_bounds_n0 CheckBox(default = false))
 -  $\delta_0$ $(@bind use_rigorous_bounds_δ0 CheckBox(default = false))
 -  $D_0$ $(@bind use_rigorous_bounds_D0 CheckBox(default = false))
