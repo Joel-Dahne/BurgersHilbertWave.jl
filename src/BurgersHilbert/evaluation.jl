@@ -521,7 +521,7 @@ function F0(
             elseif Arblib.contains_zero(x)
                 w!(res, ubound(Arb, x))
                 Arblib.inv!(res, res)
-                return Arblib.union!(res, res, zero(res))
+                Arblib.union!(res, res, zero(res))
             else
                 w!(res, x)
                 Arblib.inv!(res, res)
