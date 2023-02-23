@@ -1,7 +1,12 @@
 @testset "evaluation" begin
     u0 = BHAnsatz{Arb}()
 
-    xs = exp.(range(log(Arb("1e-5")), log(Arb("5e-1")), 10))
+    xs = exp.(range(log(Arb("1e-5")), log(Arb("5e-1")), 5))
+    # In theory the asymptotic an non-asymptotic results for ArbSeries
+    # might not overlap. The reason being that the remainder term is
+    # not computed using ArbSeries. In practice they do however
+    # overlap.
+    xs_series = [ArbSeries((x, 1, 0)) for x in xs]
 
     @testset "u0" begin
         for x in xs
@@ -23,6 +28,8 @@
             @test isfinite(y2)
             @test Arblib.overlaps(y1, y2)
         end
+
+        @test Arblib.overlaps(g(Arb((0, xs[1]))), g(xs[1]))
     end
 
     @testset "F0(u0)" begin
@@ -36,6 +43,8 @@
                 @test isfinite(y2)
                 @test Arblib.overlaps(y1, y2)
             end
+
+            @test Arblib.overlaps(g(Arb((0, xs[1]))), g(xs[1]))
         end
 
         @testset "Exponent limit" begin
@@ -66,5 +75,7 @@
             @test isfinite(y2)
             @test Arblib.overlaps(y1, y2)
         end
+
+        @test Arblib.overlaps(g(Arb((0, xs[1]))), g(xs[1]))
     end
 end
