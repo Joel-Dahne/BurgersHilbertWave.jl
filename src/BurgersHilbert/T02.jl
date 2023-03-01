@@ -189,7 +189,7 @@ log((π^2 - x^2) / (1 - x^2)) + log(1 - x^2) / 2x^2 - π^2 * log(1 - x^2 / π^2)
 ```
 and hence
 ```
-U3_m3(x) <= sqrt(log(2)) * x^2 * (log((π^2 - x^2) / (1 - x^2)) + log(1 - x^2) / 2x^2 - π^2 * log(1 - x^2 / π^2))
+U2_m3(x) <= sqrt(log(2)) * x^2 * (log((π^2 - x^2) / (1 - x^2)) + log(1 - x^2) / 2x^2 - π^2 * log(1 - x^2 / π^2) / 2x^2)
 ```
 
 ## Putting `U2_m1`, `U2_m2` and `U2_m3` together
