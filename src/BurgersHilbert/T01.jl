@@ -541,7 +541,7 @@ function T011(u0::BHAnsatz{Arb}, ::Ball = Ball(); δ1::Arb = Arb(1e-5), skip_div
 
                 Arblib.set!(
                     res,
-                    log(sin((1 - t) * xdiv2) * sin((1 + t) * xdiv2)) * tsqrt + logsin_tsqrt,
+                    log(sin((1 - t) * xdiv2) * sin((1 + t) * xdiv2)) * tsqrt - logsin_tsqrt,
                 )
                 return
             else
