@@ -36,4 +36,6 @@ include("BurgersHilbert/T01.jl")
 include("BurgersHilbert/T02.jl")
 include("BurgersHilbert/D0.jl")
 
+include("equations.jl")
+include("lemmas.jl")
 end # module
