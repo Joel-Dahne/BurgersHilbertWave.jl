@@ -183,7 +183,6 @@ U2(x) / (-x^2 * log(x) * sqrt(log(1 + inv(x)))) <= log(16 / 3sqrt(3)) / log(inv(
     (
         2 / 3 * log(inv(2x))^(3 / 2) / (log(inv(x)) * sqrt(log(1 + inv(x))))
         + R2 * sqrt(log(inv(2x))) / (8log(inv(x)) * sqrt(log(1 + inv(x))))
-        - R2 * (1 - 4x^2) / (16sqrt(log(inv(2x))) * log(inv(x)) * sqrt(log(1 + inv(x))))
         + sqrt(log(2)) / sqrt(log(inv(1 + inv(x))))
         - log(2)^(3 / 2) / (log(inv(x)) * sqrt(log(1 + inv(x))))
         + R2 * sqrt(log(2)) * (1 - 4x^2) / (8log(inv(x)) * sqrt(log(1 + inv(x))))
