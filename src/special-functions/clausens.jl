@@ -33,14 +33,15 @@ end
 
 Evaluation of the `clausens` function through the zeta function.
 
-It uses the formula
+It is based on [`equation_clausens_zeta`](@ref), which we can also
+write as
 ```
-clausens(x, s) = let v = 1 - s
-    gamma(v) * inv(2π)^v * sinpi(v / 2) * (zeta(v, x / 2π) - zeta(v, 1 - x / 2π))
+clausenc(x, s) = let v = 1 - s
+    gamma(v) * inv(2π)^v * cospi(v / 2) * (zeta(v, x / 2π) + zeta(v, 1 - x / 2π))
 end
 ```
-Based on formula [25.13.2](https://dlmf.nist.gov/25.13) for the
-periodic zeta function and then taking the imaginary part.
+It comes from the formula [25.13.2](https://dlmf.nist.gov/25.13) for
+the periodic zeta function and then taking the imaginary part.
 
 The formula is well defined as long as `s` doesn't overlap with any
 non-negative integer. See further down for how those cases are
@@ -61,9 +62,6 @@ cancelled and we get
 zeta(v, x / 2π) - zeta(v, 1 - x / 2π) =
     zeta_deflated(v, x / 2π) - zeta_deflated(v, 1 - x / 2π)
 ```
-
-**IMPROVE:** `zeta_deflated` currently doesn't support `v` overlapping
-one but not exactly one.
 
 # Handling `s` overlapping a unique positive integer
 If `s` is a positive integer then `gamma(v)` diverges, if the
@@ -322,21 +320,22 @@ If `x` contains zero and we don't have `s > 1` it returns an
 indeterminate result.
 - **IMPROVE:** Use that for odd negative integers it is exactly zero.
 
-If `x` contains zero and `s > 1` it first checks if `x` contains `π`,
-in which case it returns a trivial bound. Otherwise it checks if it is
-increasing by checking if `clausenc(abs_ubound(x), s - 1) > 0`, this
-uses the fact that `clausenc(x, s - 1)` is decreasing on ``[0, π]``.
-If it's not monotone it returns a trivial bound.
+If `x` contains zero and `s > 1`, it first checks if `x` contains `π`,
+in which case it returns the trivial bound `zeta(s)`, that this indeed
+is a bound is easily seen from the Fourier series. . Otherwise it
+checks if it is increasing by checking if `clausenc(abs_ubound(x), s -
+1) > 0`, this uses the fact that `clausenc(x, s - 1)` is
+non-increasing for `0 < x < π`, which is the result of
+[`lemma_clausenc_monotone`](@ref). If it's not monotone it returns the
+trivial bound mentioned above.
 
 If `x` doesn't contain zero we are assured by
-[`_reduce_argument_clausen`](@ref) that `0 < x < 2π`.
-
-If `x` is a wide ball (not containing zero), as determined by
-`iswide(x)`, it computes a tighter enclosure by first checking if the
-derivative doesn't contains zero, if not it uses monotonicity to only
-evaluate at endpoints. If the derivative does contain zero it uses a
-zeroth order approximation instead. In the wide case it computes the
-endpoints at a reduced precision given by
+[`_reduce_argument_clausen`](@ref) that `0 < x < 2π`. If `x` is a wide
+ball, as determined by `iswide(x)`, it computes a tighter enclosure by
+first checking if the derivative doesn't contains zero, if not it uses
+monotonicity to only evaluate at endpoints. If the derivative does
+contain zero it uses a zeroth order approximation instead. In the wide
+case it computes the endpoints at a reduced precision given by
 ```
 prec = min(max(Arblib.rel_accuracy_bits(x) + min_prec, min_prec), precision(x))
 ```
@@ -465,10 +464,11 @@ It first performs an argument reduction of `x`, using that the
 function is `2π` periodic, with [`_reduce_argument_clausen`](@ref).
 
 If `x` contains zero and we don't have `s > 1` it returns an
-indeterminate result. If `s > 1` and `x`is not exactly zero it
+indeterminate result. If `s > 1` and `x` is not exactly zero it
 computes an extremely naive enclosure using that an upper bound of the
-absolute value is given by `zeta(s)` differentiated `β` times. If `x =
-0` the result is zero.
+absolute value is given by `zeta(s)` differentiated `β` times, that
+this indeed is a bound is easily seen from the Fourier series.. If `x
+= 0` the result is zero.
 - **IMPROVE:** Compute a tighter enclosure if `x` is not exactly zero.
   Either checking the derivative at the endpoint, similarly to
   [`clausens`](@ref), or expanding at `x = 0`.
@@ -549,10 +549,13 @@ clausens(x::S, s::T, β::Integer) where {S<:Real,T<:Real} =
 Compute the asymptotic expansion of `clausens(x, s)` at zero up to
 order `2M - 1`, meaning that the error term is of order `2M + 1`.
 
+This is the expansion given in [`equation_clausens_expansion`](@ref).
+The remainder term is bounded using
+[`clausens_expansion_remainder`](@ref).
+
 It returns four things, the coefficient `C` and exponent `e` for the
 non-analytic term, the analytic terms as a `ArbSeries` `P` and the
-remainder term `E`. The `M` is the same as in Lemma 2.1 in
-arXiv:1810.10935.
+remainder term `E`.
 
 It satisfies that
 ```
@@ -603,23 +606,16 @@ Compute an enclosure of the remainder term in the asymptotic expansion
 of `clausens(x, s)` at zero up to order `2M - 1`, meaning that the
 remainder is of order `2M + 1`.
 
-This is the `E` occurring in [`clausens_expansion`](@ref) and is given
-by
-```
-sum((-1)^m * zeta(s - 2m - 1) * x^(2m + 1) / factorial(2m) for m = M:Inf) / x^(2M + 1)
-```
-
-It requires that `abs(x) < 2π` and `2M >= s + 1`. In this case an
-upper bound for the absolute value of the remainder is given by
-```
-2(2π)^(s - 2M) * abs(cospi(s / 2)) * zeta(2M + 2 - s) / (4π^2 - x^2)
-```
-and this functions returns a ball centered at zero with this radius.
+It is based on the bound given in [`lemma_clausen_remainder`](@ref).
+It returns a ball centered at zero with this bound as the radius. Note
+that since the bound is increasing in `x` it is valid for all `y`
+satisfying `abs(y) <= abs(x)`.
 """
 function clausens_expansion_remainder(x::Arb, s::Arb, M::Integer)
     pi = Arb(π)
 
     abs(x) < 2pi || throw(DomainError(x, "x must be less than 2π"))
+    s >= 0 || throw(DomainError(M, "s must be positive, got s = $s"))
     2M >= s + 1 || throw(DomainError(M, "must have 2M >= s + 1, got s = $s"))
 
     return Arblib.add_error!(
@@ -635,27 +631,20 @@ Compute an enclosure of the remainder term in the asymptotic expansion
 of `clausens(x, s, β)` at zero up to order `2M - 1`, meaning that the
 remainder is of order `2M + 1`.
 
-This is the tail in the expansion at `x = 0` and is given by
-```
-sum((-1)^m * dzeta(s - 2m - 1, β) * x^(2m + 1) / factorial(2m + 1) for m = M:Inf) / x^(2M + 1)
-```
-where we by `dzeta(s - 2m, β)` mean the zeta-function differentiated
-`β` times.
+It is based on the bound given in
+[`lemma_clausen_derivative_remainder`](@ref). It returns a ball
+centered at zero with this bound as the radius. Note that since the
+bound is increasing in `x` it is valid for all `y` satisfying `abs(y)
+<= abs(x)`.
 
-It requires that `abs(x) < 2π` and `2M >= s + 1`.
-
-The upper bound of the absolute value of the remainder is given by a
-somewhat awkward expression involving a multitude of special
-functions. See the paper for details.
-**IMPROVE:** Add some more details here, in particular since we use a
-  slightly different formulation of the bound.
-This functions returns a ball centered at zero with the upper bound as
-radius.
+It uses [`_clausen_expansion_remainder_ps`](@ref) for computing an
+expression for `p[0], ..., p[β]`.
 """
 function clausens_expansion_remainder(x::Arb, s::Arb, β::Integer, M::Integer)
     β == 0 && return clausens_expansion_remainder(x, s, M)
 
     abs(x) < 2pi || throw(DomainError(x, "x must be less than 2π"))
+    s >= 0 || throw(DomainError(M, "s must be positive, got s = $s"))
     2M >= s + 1 || throw(DomainError(M, "must have 2M >= s + 1, got s = $s"))
 
     twopi = 2Arb(π)
@@ -718,37 +707,4 @@ function clausens_expansion_remainder(x::Arb, s::Arb, β::Integer, M::Integer)
     end
 
     return Arblib.add_error!(zero(res), res)
-end
-
-"""
-    clausens_expansion_remainder(x::Arb, s::ArbSeries, M::Integer)
-
-Compute an enclosure of the remainder term in the asymptotic expansion
-of `clausens(x, s)` at zero up to order `2M - 1`, meaning that the
-remainder is of order `2M + 1`.
-
-The remainder term is given by
-```
-x^(2M + 1) * sum((-1)^m * zeta(s - 2m - 1) * x^(2(m - M)) / factorial(2m + 1) for m = M:Inf)
-```
-
-We want to compute an enclosure of each term in the expansion in `s`.
-
-We use that `clausenc_expansion_remainder(x, s[0], β, M)` gives an
-enclosure of the `β` derivative of the sum. The term in the expansion
-is thus given by dividing this by `factorial(β)`.
-"""
-function clausens_expansion_remainder(x::Arb, s::ArbSeries, M::Integer)
-    res = zero(s)
-
-    # Compute series for s[0]
-    for β = 0:Arblib.degree(s)
-        res[β] = clausens_expansion_remainder(x, s[0], β, M) / factorial(β)
-    end
-
-    # Compose the Taylor series with that of the input
-    s_tmp = copy(s)
-    s_tmp[0] = 0
-
-    return Arblib.compose(res, s_tmp)
 end
