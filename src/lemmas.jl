@@ -95,7 +95,7 @@ this expression of the expansion directly. See the asymptotic version
 of [`defect`](@ref) for [`BHAnsatz`](@ref) for how the expansion is
 computed.
 """
-lemma_defect_normalised
+function lemma_defect_normalised end
 
 """
     lemma_I_hat
@@ -129,6 +129,7 @@ I(x, y) = log(sin(abs(x - y) / 2) * sin((x + y) / 2) / sin(y / 2)^2) < 0
 ```
 for all `x < y < π`.
 """
+function lemma_I end
 
 """
     lemma_U1_asymptotic

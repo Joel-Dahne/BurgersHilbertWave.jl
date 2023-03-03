@@ -136,6 +136,8 @@ If `force = false` it requires that the enclosure of `f` at zero is
 exactly zero. If `f` is known to be exactly zero at zero but the
 enclosure might be wider it can be forced to be zero by setting `force
 = true`
+
+This function is based on [`lemma_removable_singularities`](@ref).
 """
 function fx_div_x(
     f,
