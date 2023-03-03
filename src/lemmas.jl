@@ -79,11 +79,21 @@ abs(x) * log(abs(x)) / u0(x) = -inv(
 function lemma_inv_u0_normalised end
 
 """
-    lemma_defect_normalised??
+    lemma_defect_normalised
 
 Corresponds to Lemma 5.2 in the paper.
 
 # Statement
+The function
+```
+(H(u0)(x) + 1 / 2 * u0(x)^2) / (x^2 * log(abs(x)))
+```
+is non-zero and bounded at `x = 0` and for `abs(x) < 1`.
+
+The lemma also gives the expansion at `x = 0`. We do however not use
+this expression of the expansion directly. See the asymptotic version
+of [`defect`](@ref) for [`BHAnsatz`](@ref) for how the expansion is
+computed.
 """
 lemma_defect_normalised
 
@@ -216,6 +226,17 @@ is bounded from above by `2 / 3` and is decreasing in `x` for `0 < x <
 1 / 2`.
 """
 function lemma_U2_term_bound end
+
+"""
+    lemma_bound_delta0
+
+Corresponds to Lemma 7.2 in the paper.
+
+We don't use the statement of the lemma in the code but some of the
+details of the asymptotic version of [`F0`](@ref) are discussed in the
+proof of the lemma.
+"""
+function lemma_bound_delta0 end
 
 """
     lemma_removable_singularities
