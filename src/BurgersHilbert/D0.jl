@@ -72,7 +72,7 @@ function D0_bound(u0::BHAnsatz; atol = 1e-3, verbose = false)
         atol,
         verbose,
     )
-    return m
+
     # Show that it is bounded by m on [0, ϵ]
     h = T0(u0, Asymptotic(), ϵ = Arb(1.1ϵ))
     ϵ2 = Arf(1e-100)
