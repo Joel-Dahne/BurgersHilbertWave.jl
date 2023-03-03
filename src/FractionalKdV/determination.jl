@@ -127,7 +127,7 @@ function finda0(α)
 end
 
 function _findas(u0::FractionalKdVAnsatz; verbose = true)
-    f = D(u0, Symbolic())
+    f = defect(u0, Symbolic())
     g(a) = f(OffsetVector([u0.a[0]; a], 0:u0.N0))
 
     initial = u0.a[1:end]
@@ -187,10 +187,10 @@ end
 """
     findbs(u0, initial)
 
-Find values of `u0.b[n]` to minimize the defect `D(u0)`.
+Find values of `u0.b[n]` to minimize the defect `defect(u0)`.
 
 This is done by solving the non-linear system given by requiring that
-`D(u0)` evaluates to zero on `u0.N1` collocation points.
+`defect(u0)` evaluates to zero on `u0.N1` collocation points.
 
 It uses [`nlsolve`](@ref) to find the zero, however `nlsolve` doesn't
 support `Arb` so this is always done in `Float64`.
@@ -203,7 +203,7 @@ function findbs(u0::FractionalKdVAnsatz{T}; verbose = true) where {T}
     n = u0.N1
     xs = π * (1:2:2n-1) / 2n
 
-    f = D(u0, xs)
+    f = defect(u0, xs)
     g(b) = f(u0.a.parent, b)
 
     initial = u0.b

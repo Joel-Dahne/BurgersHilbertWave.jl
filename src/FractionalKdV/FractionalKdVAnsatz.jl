@@ -14,10 +14,10 @@ KdV equations with `α ∈ (-1, 0)`. It has the following parameters
 - `b`: vector with the Fourier coefficients, corresponding to ``b_n``
   in the paper.
 - `p`: exponent for the weight, which is given by `abs(x)^p`.
-- `zeroterms`: list of terms in the asymptotic expansion of `D(u0)`
-  which guaranteed to be identically equal to zero. It is a set of
-  tuples on the form `(i, j, m)`, see [`eval_expansion`](@ref) for
-  more information.
+- `zeroterms`: list of terms in the asymptotic expansion of
+  `defect(u0)` which guaranteed to be identically equal to zero. It is
+  a set of tuples on the form `(i, j, m)`, see
+  [`eval_expansion`](@ref) for more information.
 
 There are requirements on the parameters needed to give the correct
 asymptotic values. These are

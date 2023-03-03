@@ -34,12 +34,14 @@ function H(u0::FractionalKdVAnsatz, ::Ball)
 end
 
 """
-    D(u0::FractionalKdVAnsatz, xs::AbstractVector)
-Returns a function such that D(u0, xs)(a, b) computes D(u0)(x) on the
-points x ∈ xs with u0.a and u0.b set to the given values. Does this in
-an efficient way by precomputing as much as possible.
+    defect(u0::FractionalKdVAnsatz, xs::AbstractVector)
+
+Returns a function such that defect(u0, xs)(a, b) computes
+defect(u0)(x) on the points x ∈ xs with u0.a and u0.b set to the given
+values. Does this in an efficient way by precomputing as much as
+possible.
 """
-function D(u0::FractionalKdVAnsatz, xs::AbstractVector)
+function defect(u0::FractionalKdVAnsatz, xs::AbstractVector)
     u0_xs_a_precomputed = zeros(length(xs), u0.N0 + 1)
     u0_xs_b_precomputed = zeros(length(xs), u0.N1)
     Hu0_xs_a_precomputed = zeros(length(xs), u0.N0 + 1)
@@ -66,16 +68,16 @@ function D(u0::FractionalKdVAnsatz, xs::AbstractVector)
 end
 
 """
-    D(u0::FractionalKdVAnsatz, evaltype::Symbolic; M::Integer = 5)
+    defect(u0::FractionalKdVAnsatz, evaltype::Symbolic; M::Integer = 5)
 
-Return a function such that `D(u0, evaltype, N)(a)` computes the
+Return a function such that `defect(u0, evaltype, N)(a)` computes the
 coefficients in the asymptotic expansion with indices `3` to `u0.N0 +
 1` using the values from `a`.
 
 This is used in [`_findas`](@ref) for numerically finding values for
 `a`.
 """
-function D(u0::FractionalKdVAnsatz{T}, ::Symbolic; M::Integer = 5) where {T}
+function defect(u0::FractionalKdVAnsatz{T}, ::Symbolic; M::Integer = 5) where {T}
     # Given a key get its exponent
     key_exponent = ((i, j, m),) -> -i * u0.α + j * u0.p0 + m
 
