@@ -955,21 +955,15 @@ function clausenc_expansion_remainder(x::Arb, s::Arb, β::Integer, M::Integer)
             for (exponents, coefficient) in ps[j2]
                 q0 = Arb(isempty(exponents) ? 0 : exponents[1])
 
-                # Upper bound of
-                # sum((m + M + 1 / 2)^(q0 / 2) * (x / 2π)^2m for m = 0:Inf)
-                S = lerch_phi((x / twopi)^2, -q0 / 2, M + Arb(1 // 2))
-
-                # Add factor to get an upper bound of
-                # sum((1 + 2m)^(q0 / 2) * (x / 2π)^2m for m = M:Inf) / x^2M
-                S *= twopi^(-2M) / 2^(q0 / 2)
-
                 # Upper bound of polygamma-factors
                 polygamma_factor = one(x)
                 for i = 2:length(exponents)
                     polygamma_factor *= polygamma_bounds[i-1]^exponents[i]
                 end
 
-                term += coefficient * polygamma_factor * S
+                term +=
+                    coefficient * polygamma_factor * twopi^(-2M) / 2^(q0 / 2) *
+                    lerch_phi((x / twopi)^2, -q0 / 2, M + Arb(1 // 2))
             end
 
             # Multiply with bounds for remaining factors
