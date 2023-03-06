@@ -43,7 +43,6 @@ allocations in that case.
 function delta0_bound(
     u0::BHAnsatz{Arb};
     rtol = Arb(1e-3),
-    degree = 4,
     return_subresults = false,
     verbose = false,
 )
@@ -84,13 +83,13 @@ function delta0_bound(
         f1,
         ϵ1,
         ϵ2,
+        degree = 2,
         abs_value = true,
         log_bisection = true,
         depth_start = 24,
         threaded = true,
         maxevals = typemax(Int),
         depth = typemax(Int);
-        degree,
         rtol,
         verbose,
     )
@@ -101,13 +100,13 @@ function delta0_bound(
         f2,
         ϵ2,
         ϵ3,
+        degree = 4,
         abs_value = true,
         log_bisection = true,
-        depth_start = 17,
+        depth_start = 18,
         threaded = true,
         maxevals = typemax(Int),
         depth = typemax(Int);
-        degree,
         rtol,
         verbose,
     )
@@ -118,13 +117,13 @@ function delta0_bound(
         f3,
         ϵ3,
         ϵ,
+        degree = 4,
         abs_value = true,
         depth_start = 10,
         log_bisection = true,
         threaded = true,
         maxevals = typemax(Int),
         depth = typemax(Int);
-        degree,
         rtol,
         verbose,
     )
@@ -140,11 +139,11 @@ function delta0_bound(
         F0(u0),
         ϵ,
         Arblib.ubound(Arb(π)),
+        degree = 4,
         abs_value = true,
         depth_start = 7,
         threaded = true,
         maxevals = 5000;
-        degree,
         rtol,
         verbose,
     )
