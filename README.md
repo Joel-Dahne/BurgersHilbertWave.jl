@@ -17,7 +17,7 @@ The html-file mentioned above is generated from a
 [Pluto](https://github.com/fonsp/Pluto.jl) notebook. You can reproduce
 the proof by running the notebook yourself as described below.
 
-The proofs were run with Julia version 1.7.2 but should likely work
+The proofs were run with Julia version 1.8.5 but should likely work
 with later versions as well. This repository contains the same
 `Manifest.toml` file as was used when running the proofs, this allows
 us to install exactly the same versions of the packages. To do this
@@ -33,13 +33,8 @@ Pkg.instantiate()
 This will likely take some time the first time you run it since it has
 to download all the packages. You can see if it seems to work by
 running `Pkg.test()`. This should give you some output related to all
-the installed packages and then ending in
-
-```
-Test Summary:      |   Pass   Total
-BurgersHilbertWave | 186528  186528
-     Testing BurgersHilbertWave tests passed
-```
+the installed packages and test summary hopefully indicating that all
+tests passed.
 
 To run the notebooks do
 
@@ -51,6 +46,13 @@ Pluto.run()
 which should open a Pluto window in your browser. Now you can open the
 notebook inside the `proofs` directory through this and it should run
 the proof.
+
+It is also possible to run the proof directly from the terminal with
+
+``` shell
+cd proofs
+julia -t auto bh.jl
+```
 
 # Notes about the implementation
 The code uses [Arblib.jl](https://github.com/kalmarek/Arblib.jl),
