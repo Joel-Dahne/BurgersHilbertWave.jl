@@ -5,11 +5,11 @@ bounds](figures/BH-u.png)
 
 This repository contains the code for the computer assisted parts of
 the proofs for the paper [Highest Cusped Waves for the Burgers-Hilbert
-equation](https://arxiv.org/abs/2205.00802). If you are interested in
-seeing the results of the computations without running anything
-yourself you can look at the html-file in the `proofs` directory. You
-will likely have to download the file and open it locally in your
-browser.
+equation](https://doi.org/10.1007/s00205-023-01904-6). If you are
+interested in seeing the results of the computations without running
+anything yourself you can look at the html-file in the `proofs`
+directory. You will likely have to download the file and open it
+locally in your browser.
 
 ## Reproducing the proof
 
